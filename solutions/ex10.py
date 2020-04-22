@@ -13,21 +13,25 @@ class Node:
 
 
 def findCeilingFloor(root_node, k, floor=None, ceil=None):
+    if(root_node is None):
+        return (floor, ceil)
+
     if(root_node.value <= k):
         if(floor is not None):
             if(root_node.value > floor):
                 floor = root_node.value
+            else:
+                return (floor, ceil)
         else:
             floor = root_node.value
     else:
         if(ceil is not None):
             if(root_node.value < ceil):
                 ceil = root_node.value
+            else:
+                return (floor, ceil)
         else:
             ceil = root_node.value
-
-    if(root_node.left is None):
-        return (floor, ceil)
 
     floor, ceil = findCeilingFloor(root_node.left, k, floor=floor, ceil=ceil)
     floor, ceil = findCeilingFloor(root_node.right, k, floor=floor, ceil=ceil)
